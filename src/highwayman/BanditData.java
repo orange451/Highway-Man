@@ -34,6 +34,7 @@ public class BanditData {
 	public static String DISPLAY_NAME;
 	public static String SKIN_NAME;
 	public static int DROP_ITEMS;
+	public static int INITIAL_HEALTH;
 
 	public static int MINIMUM_SPAWN_Y;
 	public static int MAXIMUM_SPAWN_Y;
@@ -56,6 +57,7 @@ public class BanditData {
 		DROP_ITEMS = 1;
 		NPCS_PER_PLAYER = 1;
 		RANDOM_GEAR_DURABILITY = true;
+		INITIAL_HEALTH = 10;
 	}
 
 	public BanditData() {
@@ -137,6 +139,7 @@ public class BanditData {
 		DISPLAY_NAME = readStringSafe( jObject, "DISPLAY_NAME", DISPLAY_NAME );
 		SKIN_NAME = readStringSafe( jObject, "SKIN_NAME", SKIN_NAME );
 		DROP_ITEMS = readIntSafe( jObject, "DROP_ITEMS", DROP_ITEMS );
+		INITIAL_HEALTH  = readIntSafe( jObject, "INITIAL_HEALTH", INITIAL_HEALTH);
 		RANDOM_GEAR_DURABILITY = readBooleanSafe( jObject, "RANDOM_GEAR_DURABILITY", RANDOM_GEAR_DURABILITY );
 	}
 

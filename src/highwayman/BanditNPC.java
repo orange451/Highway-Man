@@ -44,6 +44,11 @@ public class BanditNPC extends HostilePlayerNPC {
 				getPlayer().getInventory().setBoots(boots);
 				getPlayer().getInventory().addItem(drops);
 				
+				// Ensure max health
+				getPlayer().setMaxHealth(BanditData.INITIAL_HEALTH);
+				getPlayer().resetMaxHealth();
+				getPlayer().setHealth(BanditData.INITIAL_HEALTH);
+				
 				if ( weapon.getType().equals(Material.BOW) )
 					getPlayer().getInventory().addItem(new ItemStack(Material.ARROW, 10 + (int)(Math.random()*10)));
 			}
