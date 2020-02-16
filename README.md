@@ -1,6 +1,7 @@
 ![mainbanner](https://i.imgur.com/4rZbzgh.png)
 
 Download here: https://www.curseforge.com/minecraft/bukkit-plugins/highway-man
+
 Requires [SpawnHumanAPI](https://github.com/orange451/SpawnHumanAPI)
 
 The Highway Man is a hostile human NPC that will spawn near players, but still out-of-sight. They roam the countryside randomly, until they find a potential target.
