@@ -14,9 +14,6 @@ public class BanditSpawner {
 	
 	public BanditSpawner() {
 		
-		// Load the CFG
-		new BanditData();
-		
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(SpawnHuman.plugin, new Runnable() {
 			@Override
 			public void run() {

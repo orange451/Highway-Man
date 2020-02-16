@@ -1,8 +1,8 @@
 name: Highwayman
-main: spawnhuman.SpawnHuman
+main: highwayman.HighwaymanMain
 version: 0.1
 api-version: 1.13
-website: http://firstrecon.net/
+website: https://manta.games/
 author: orange451
 softdepend: [Citizens]
 commands:
