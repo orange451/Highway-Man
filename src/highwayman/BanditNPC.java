@@ -34,9 +34,9 @@ public class BanditNPC extends HostilePlayerNPC {
 		}
 		
 		// Apply armor with delay (sometimes disappears)
-		Bukkit.getScheduler().scheduleSyncDelayedTask(SpawnHuman.plugin, new Runnable() {
+		/*Bukkit.getScheduler().scheduleSyncDelayedTask(SpawnHuman.plugin, new Runnable() {
 			@Override
-			public void run() {
+			public void run() {*/
 				getPlayer().getInventory().setItemInMainHand(weapon);
 				getPlayer().getInventory().setHelmet(helmet);
 				getPlayer().getInventory().setChestplate(chestplate);
@@ -51,8 +51,8 @@ public class BanditNPC extends HostilePlayerNPC {
 				
 				if ( weapon.getType().equals(Material.BOW) )
 					getPlayer().getInventory().addItem(new ItemStack(Material.ARROW, 10 + (int)(Math.random()*10)));
-			}
-		}, 10);
+			//}
+		//}, 10);
 	}
 
 }

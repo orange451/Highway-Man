@@ -141,6 +141,12 @@ public class BanditData {
 		DROP_ITEMS = readIntSafe( jObject, "DROP_ITEMS", DROP_ITEMS );
 		INITIAL_HEALTH  = readIntSafe( jObject, "INITIAL_HEALTH", INITIAL_HEALTH);
 		RANDOM_GEAR_DURABILITY = readBooleanSafe( jObject, "RANDOM_GEAR_DURABILITY", RANDOM_GEAR_DURABILITY );
+		
+		// INITIAL_HEALTH Must be within bounds 0-50
+		if ( INITIAL_HEALTH < 0 || INITIAL_HEALTH > 50 ) {
+			INITIAL_HEALTH = Math.min(50, Math.max(0, INITIAL_HEALTH));
+			System.err.println("Field INITIAL_HEALTH is outside of bounds [0-50]. It has been capped to be: " + INITIAL_HEALTH);
+		}
 	}
 
 	private void loadSpawnData(JSONObject spawnData) {
@@ -247,6 +253,7 @@ public class BanditData {
 		base.put("DISPLAY_NAME", DISPLAY_NAME);
 		base.put("SKIN_NAME", SKIN_NAME);
 		base.put("DROP_ITEMS", DROP_ITEMS);
+		base.put("INITIAL_HEALTH", INITIAL_HEALTH);
 		base.put("RANDOM_GEAR_DURABILITY", RANDOM_GEAR_DURABILITY);
 
 
