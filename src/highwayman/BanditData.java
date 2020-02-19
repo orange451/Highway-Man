@@ -36,6 +36,10 @@ public class BanditData {
 	public static int DROP_ITEMS;
 	public static int INITIAL_HEALTH;
 
+	public static double ENTITY_TARGET_DISTANCE;
+	public static double RUN_SPEED;
+	public static double WALK_SPEED;
+
 	public static int MINIMUM_SPAWN_Y;
 	public static int MAXIMUM_SPAWN_Y;
 	public static int MINIMUM_SPAWN_DISTANCE;
@@ -58,6 +62,9 @@ public class BanditData {
 		NPCS_PER_PLAYER = 1;
 		RANDOM_GEAR_DURABILITY = true;
 		INITIAL_HEALTH = 10;
+		WALK_SPEED = 1.25f;
+		RUN_SPEED = 2.0f;
+		ENTITY_TARGET_DISTANCE = 24f;
 	}
 
 	public BanditData() {
@@ -141,6 +148,10 @@ public class BanditData {
 		DROP_ITEMS = readIntSafe( jObject, "DROP_ITEMS", DROP_ITEMS );
 		INITIAL_HEALTH  = readIntSafe( jObject, "INITIAL_HEALTH", INITIAL_HEALTH);
 		RANDOM_GEAR_DURABILITY = readBooleanSafe( jObject, "RANDOM_GEAR_DURABILITY", RANDOM_GEAR_DURABILITY );
+
+		RUN_SPEED = readDoubleSafe( jObject, "RUN_SPEED", RUN_SPEED );
+		WALK_SPEED = readDoubleSafe( jObject, "WALK_SPEED", WALK_SPEED );
+		ENTITY_TARGET_DISTANCE = readDoubleSafe( jObject, "ENTITY_TARGET_DISTANCE", ENTITY_TARGET_DISTANCE );
 		
 		// INITIAL_HEALTH Must be within bounds 0-50
 		if ( INITIAL_HEALTH < 0 || INITIAL_HEALTH > 50 ) {

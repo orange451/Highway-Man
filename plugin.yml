@@ -6,5 +6,4 @@ website: https://manta.games/
 author: orange451
 softdepend: [Citizens,SpawnHumanAPI]
 commands:
- npcamt:
- npctest:
+ ha-test:

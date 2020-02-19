@@ -22,6 +22,11 @@ public class BanditNPC extends HostilePlayerNPC {
 		this.canAttackSameNPCs = false;
 		this.canAttackPassiveMobs = false;
 		
+		// Some attributes
+		this.RUN_SPEED = (float) BanditData.RUN_SPEED;
+		this.WALK_SPEED = (float) BanditData.WALK_SPEED;
+		this.ENTITY_TARGET_DISTANCE = (float) BanditData.ENTITY_TARGET_DISTANCE;
+		
 		ItemStack weapon = RarityItem.pick(BanditData.WEAPONS, BanditData.RANDOM_GEAR_DURABILITY);
 		ItemStack helmet = RarityItem.pick(BanditData.ARMOR_HELMET, BanditData.RANDOM_GEAR_DURABILITY);
 		ItemStack chestplate = RarityItem.pick(BanditData.ARMOR_CHESTPLATE, BanditData.RANDOM_GEAR_DURABILITY);
@@ -33,26 +38,26 @@ public class BanditNPC extends HostilePlayerNPC {
 			drops[i] = RarityItem.pick(BanditData.INVENTORY);
 		}
 		
-		// Apply armor with delay (sometimes disappears)
-		/*Bukkit.getScheduler().scheduleSyncDelayedTask(SpawnHuman.plugin, new Runnable() {
+		// Apply armor with delay (sometimes disappears?)
+		Bukkit.getScheduler().scheduleSyncDelayedTask(SpawnHuman.plugin, new Runnable() {
 			@Override
-			public void run() {*/
+			public void run() {
 				getPlayer().getInventory().setItemInMainHand(weapon);
 				getPlayer().getInventory().setHelmet(helmet);
 				getPlayer().getInventory().setChestplate(chestplate);
 				getPlayer().getInventory().setLeggings(leggings);
 				getPlayer().getInventory().setBoots(boots);
 				getPlayer().getInventory().addItem(drops);
-				
-				// Ensure max health
-				getPlayer().setMaxHealth(BanditData.INITIAL_HEALTH);
-				getPlayer().resetMaxHealth();
-				getPlayer().setHealth(BanditData.INITIAL_HEALTH);
-				
-				if ( weapon.getType().equals(Material.BOW) )
-					getPlayer().getInventory().addItem(new ItemStack(Material.ARROW, 10 + (int)(Math.random()*10)));
-			//}
-		//}, 10);
+			}
+		}, 1l);
+		
+		// Ensure max health
+		getPlayer().setMaxHealth(BanditData.INITIAL_HEALTH);
+		getPlayer().resetMaxHealth();
+		getPlayer().setHealth(BanditData.INITIAL_HEALTH);
+		
+		if ( weapon.getType().equals(Material.BOW) )
+			getPlayer().getInventory().addItem(new ItemStack(Material.ARROW, 10 + (int)(Math.random()*10)));
 	}
 
 }
