@@ -39,25 +39,23 @@ public class BanditNPC extends HostilePlayerNPC {
 		}
 		
 		// Apply armor with delay (sometimes disappears?)
-		Bukkit.getScheduler().scheduleSyncDelayedTask(SpawnHuman.plugin, new Runnable() {
-			@Override
-			public void run() {
-				getPlayer().getInventory().setItemInMainHand(weapon);
-				getPlayer().getInventory().setHelmet(helmet);
-				getPlayer().getInventory().setChestplate(chestplate);
-				getPlayer().getInventory().setLeggings(leggings);
-				getPlayer().getInventory().setBoots(boots);
-				getPlayer().getInventory().addItem(drops);
-			}
+		Bukkit.getScheduler().scheduleSyncDelayedTask(SpawnHuman.plugin, () -> {
+			getPlayer().getInventory().setItemInMainHand(weapon);
+			getPlayer().getInventory().setHelmet(helmet);
+			getPlayer().getInventory().setChestplate(chestplate);
+			getPlayer().getInventory().setLeggings(leggings);
+			getPlayer().getInventory().setBoots(boots);
+			getPlayer().getInventory().addItem(drops);
+
+			// If we previously gave player bow, give him arrows too!
+			if ( weapon.getType().equals(Material.BOW) )
+				getPlayer().getInventory().addItem(new ItemStack(Material.ARROW, 10 + (int)(Math.random()*10)));
 		}, 1l);
 		
 		// Ensure max health
 		getPlayer().setMaxHealth(BanditData.INITIAL_HEALTH);
 		getPlayer().resetMaxHealth();
 		getPlayer().setHealth(BanditData.INITIAL_HEALTH);
-		
-		if ( weapon.getType().equals(Material.BOW) )
-			getPlayer().getInventory().addItem(new ItemStack(Material.ARROW, 10 + (int)(Math.random()*10)));
 	}
 
 }

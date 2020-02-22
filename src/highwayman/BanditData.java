@@ -30,6 +30,8 @@ public class BanditData {
 
 	public static boolean RANDOM_GEAR_DURABILITY;
 	public static double NPCS_PER_PLAYER;
+	
+	public static boolean DISPLAY_DEATH_MESSAGE;
 
 	public static String DISPLAY_NAME;
 	public static String SKIN_NAME;
@@ -65,6 +67,7 @@ public class BanditData {
 		WALK_SPEED = 1.25f;
 		RUN_SPEED = 2.0f;
 		ENTITY_TARGET_DISTANCE = 24f;
+		DISPLAY_DEATH_MESSAGE = true;
 	}
 
 	public BanditData() {
@@ -72,9 +75,9 @@ public class BanditData {
 		JSONObject jObject = null;
 
 		// Make sure we have a data folder
-		SpawnHuman.plugin.getDataFolder().mkdirs();
+		HighwaymanMain.plugin.getDataFolder().mkdirs();
 
-		File configFile = new File(SpawnHuman.plugin.getDataFolder() + File.separator + "config.json");
+		File configFile = new File(HighwaymanMain.plugin.getDataFolder().getAbsolutePath() + File.separator + "config.json");
 		if ( !configFile.exists() ) {
 			jObject = newConfig();
 			String writeString = JSONUtil.prettyPrint(jObject);
@@ -153,6 +156,8 @@ public class BanditData {
 		WALK_SPEED = readDoubleSafe( jObject, "WALK_SPEED", WALK_SPEED );
 		ENTITY_TARGET_DISTANCE = readDoubleSafe( jObject, "ENTITY_TARGET_DISTANCE", ENTITY_TARGET_DISTANCE );
 		
+		DISPLAY_DEATH_MESSAGE = readBooleanSafe( jObject, "DISPLAY_DEATH_MESSAGE", DISPLAY_DEATH_MESSAGE );
+		
 		// INITIAL_HEALTH Must be within bounds 0-50
 		if ( INITIAL_HEALTH < 0 || INITIAL_HEALTH > 50 ) {
 			INITIAL_HEALTH = Math.min(50, Math.max(0, INITIAL_HEALTH));
@@ -170,13 +175,16 @@ public class BanditData {
 		NPCS_PER_PLAYER = readDoubleSafe( spawnData, "NPCS_PER_PLAYER", NPCS_PER_PLAYER);
 
 		JSONArray allowedWorlds = (JSONArray) spawnData.get("ALLOWED_WORLDS");
-		for (int i = 0; i < allowedWorlds.size(); i++) {
-			World w = Bukkit.getWorld((String) allowedWorlds.get(i));
-			if ( w == null ) {
-				System.out.println("\t\tMissing world: " + w);
-			} else {
-				ALLOWED_WORLDS.add(w);
+		List<World> worlds = Bukkit.getWorlds();
+		userInputWorlds: for (int i = 0; i < allowedWorlds.size(); i++) {
+			for (World world : worlds) {
+				if ( world.getName().equalsIgnoreCase((String) allowedWorlds.get(i))) {
+					ALLOWED_WORLDS.add(world);
+					continue userInputWorlds;
+				}
 			}
+			
+			System.out.println("\t\tCould not find world: " + allowedWorlds.get(i).toString());
 		}
 
 		JSONArray allowedBlocks = (JSONArray) spawnData.get("BLOCKS_CAN_SPAWN_ON");
@@ -266,7 +274,11 @@ public class BanditData {
 		base.put("DROP_ITEMS", DROP_ITEMS);
 		base.put("INITIAL_HEALTH", INITIAL_HEALTH);
 		base.put("RANDOM_GEAR_DURABILITY", RANDOM_GEAR_DURABILITY);
-
+		
+		base.put("DISPLAY_DEATH_MESSAGE", DISPLAY_DEATH_MESSAGE);
+		base.put("ENTITY_TARGET_DISTANCE", ENTITY_TARGET_DISTANCE);
+		base.put("WALK_SPEED", WALK_SPEED);
+		base.put("RUN_SPEED", RUN_SPEED);
 
 		JSONObject SPAWN_DATA = new JSONObject();
 		{
